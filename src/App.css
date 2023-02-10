@@ -1,0 +1,182 @@
+.App {
+  height: 100vh;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.max-full-width {
+  max-width: 100%;
+}
+
+.tabs {
+  text-align: center;
+}
+
+.left-right-padding {
+  padding-left: 4em;
+  padding-right: 4em;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 120%;
+  /* or 19px */
+
+  letter-spacing: 0.005em;
+}
+
+.dashboard {
+  background-color: #ebebeb;
+  height: 100%;
+  padding-top: 1em;
+}
+
+.container {
+  min-width: 100%;
+}
+
+.navbar-text {
+  padding: 0.5em;
+}
+
+.graph {
+  background-color: white;
+  border-radius: 12px;
+  height: 100%;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.table {
+  background-color: white;
+  border-radius: 12px;
+  padding-top: 2em;
+}
+
+.nav-item {
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  margin-top: 1em;
+}
+
+.table-header {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 120%;
+  /* or 19px */
+
+  letter-spacing: 0.005em;
+
+  /* Light/Text Color/Title */
+
+  color: #11142D;
+  background-color: #F7F7FC!important;
+}
+
+.borderless {
+  border: 0;
+}
+
+.grey-border-bottom {
+  border-bottom: 1px solid #E1E1E1;
+}
+
+.green-box {
+  height: 2em;
+  width: 2em;
+  background-color: #33FF00
+}
+
+.red-box {
+  height: 2em;
+  width: 2em;
+  background-color: #FF0000
+}
+
+.orange-box {
+  height: 2em;
+  width: 2em;
+  background-color: #FFA800;
+
+}
+
+.center-table-items {
+  text-align: center;
+}
+
+.menu-text {
+  font-family: 'Mulish';
+  font-style: sans-serif;
+  font-weight: 70;
+  font-size: 16px;
+  line-height: 120%;
+
+  text-align: center;
+  letter-spacing: 0.005em;
+
+
+  color: #FFFFFF;
+}
+
+.rounded {
+  border-radius: 1em;
+}
+
+.light-primary {
+  background: #5541D7;
+}
+
+.table-container {
+  padding-top: 20px;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 120%;
+  /* or 19px */
+
+  letter-spacing: 0.005em;
+
+  /* Light/Text Color/Title */
+
+  color: #11142D;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

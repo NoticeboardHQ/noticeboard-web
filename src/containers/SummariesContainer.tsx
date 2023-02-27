@@ -34,30 +34,57 @@ interface SummaryProps {
   trend: string
 }
 
+const complaintSummaries = [
+  {
+    total: 4,
+    outStandingCount: 3,
+    type: 'Severe',
+    trend: 'down'
+  },
+  {
+    total: 8,
+    outStandingCount: 2,
+    type: 'Moderate',
+    trend: 'up' 
+  },
+  {
+    total: 18,
+    outStandingCount: 1,
+    type: 'First Time',
+    trend: 'up'
+  }
+]
+
+const averageResponseStats = {
+  timeTaken: '10 minutes',
+  percentageDelta: '+12%',
+  trend: 'up'
+}
+
 
 function SummariesContainer() {
   const [analytics, setAnalytics] = useState()
-  const client = new Client()
-  const complaintService = new ComplaintsService(client)
-  useEffect(() => {
-    complaintService.analytics()
-      .then((data: any) => {
-        console.log('data', data)
-        // setAnalytics(data)
-      })
-  }, [])
+  // const client = new Client()
+  // const complaintService = new ComplaintsService(client)
+  // useEffect(() => {
+  //   complaintService.analytics()
+  //     .then((data: any) => {
+  //       console.log('data', data)
+  //       // setAnalytics(data)
+  //     })
+  // }, [])
 
-  const {
-    loading: loadingComplaintSummaries,
-    error: errorComplaintSummaries,
-    data: { complaintSummaries } = {}
-  } = useQuery(GET_COMPLAINT_SUMMARIES)
+  // const {
+  //   loading: loadingComplaintSummaries,
+  //   error: errorComplaintSummaries,
+  //   data: { complaintSummaries } = {}
+  // } = useQuery(GET_COMPLAINT_SUMMARIES)
   
-  const {
-    loading: loadingAverageSummary,
-    error: errorLoadingAverageResponseSummary,
-    data: { averageResponseStats } = {}
-  } = useQuery(GET_AVERAGE_RESPONSE_SUMMARY)
+  // const {
+  //   loading: loadingAverageSummary,
+  //   error: errorLoadingAverageResponseSummary,
+  //   data: { averageResponseStats } = {}
+  // } = useQuery(GET_AVERAGE_RESPONSE_SUMMARY)
 
   const bgColors = {
     "Severe": "danger",
@@ -65,8 +92,8 @@ function SummariesContainer() {
     "First Time": "success",
   }
 
-  if (loadingComplaintSummaries || loadingAverageSummary) return <div>'Loading...'</div>
-  if (errorComplaintSummaries || errorLoadingAverageResponseSummary) return <div>`Error! ${errorComplaintSummaries?.message}`</div>
+  // if (loadingComplaintSummaries || loadingAverageSummary) return <div>'Loading...'</div>
+  // if (errorComplaintSummaries || errorLoadingAverageResponseSummary) return <div>`Error! ${errorComplaintSummaries?.message}`</div>
 
   return (
     <Row>

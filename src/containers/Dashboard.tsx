@@ -7,7 +7,7 @@ import ComplaintsGraph from './ComplaintsGraph'
 
 function Dashboard() {
   return (
-    <div className="dashboard full-height">
+    <div className="tab-content full-height">
       <Col className="left-right-padding">
         <SummariesContainer />
         <ComplaintsGraph />

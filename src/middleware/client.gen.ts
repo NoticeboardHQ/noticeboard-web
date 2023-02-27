@@ -10,8 +10,7 @@ interface HeadersFunc {
 export class Client {
 	// basepath is the path prefix for the requests.
 	// This may be a path, or an absolute URL.
-	public basepath: String = 'https://nb.dev.kolomajr.com/complaints/'
-	// public basepath: String = '/complaints/'
+	public basepath: String = 'https://nb.dev.kolomajr.com/api/'
 	// headers allows calling code to mutate the HTTP
 	// headers of the underlying HTTP requests.
 	public headers?: HeadersFunc
@@ -20,9 +19,9 @@ export class Client {
 
 // ComplaintsService handle the conversational form requests
 export class ComplaintsService {
-	constructor(readonly client: Client) {}
-	
-		async analytics(analyticsRequest?: AnalyticsRequest, modifyHeaders?: HeadersFunc): Promise<AnalyticsResponse> {
+	constructor(readonly client: Client) { }
+
+	async analytics(analyticsRequest?: AnalyticsRequest, modifyHeaders?: HeadersFunc): Promise<AnalyticsResponse> {
 		if (analyticsRequest == null) {
 			analyticsRequest = new AnalyticsRequest();
 		}
@@ -50,8 +49,8 @@ export class ComplaintsService {
 			return new AnalyticsResponse(json);
 		})
 	}
-	
-		async assignComplaint(assignComplaintRequest?: AssignComplaintRequest, modifyHeaders?: HeadersFunc): Promise<AssignComplaintResponse> {
+
+	async assignComplaint(assignComplaintRequest?: AssignComplaintRequest, modifyHeaders?: HeadersFunc): Promise<AssignComplaintResponse> {
 		if (assignComplaintRequest == null) {
 			assignComplaintRequest = new AssignComplaintRequest();
 		}
@@ -79,8 +78,8 @@ export class ComplaintsService {
 			return new AssignComplaintResponse(json);
 		})
 	}
-	
-		async attachMedia(attachMediaRequest?: AttachMediaRequest, modifyHeaders?: HeadersFunc): Promise<AttachMediaResponse> {
+
+	async attachMedia(attachMediaRequest?: AttachMediaRequest, modifyHeaders?: HeadersFunc): Promise<AttachMediaResponse> {
 		if (attachMediaRequest == null) {
 			attachMediaRequest = new AttachMediaRequest();
 		}
@@ -108,8 +107,8 @@ export class ComplaintsService {
 			return new AttachMediaResponse(json);
 		})
 	}
-	
-		async closeComplaint(closeComplaintRequest?: CloseComplaintRequest, modifyHeaders?: HeadersFunc): Promise<CloseComplaintResponse> {
+
+	async closeComplaint(closeComplaintRequest?: CloseComplaintRequest, modifyHeaders?: HeadersFunc): Promise<CloseComplaintResponse> {
 		if (closeComplaintRequest == null) {
 			closeComplaintRequest = new CloseComplaintRequest();
 		}
@@ -137,8 +136,8 @@ export class ComplaintsService {
 			return new CloseComplaintResponse(json);
 		})
 	}
-	
-		async complaintHistory(complaintHistoryRequest?: ComplaintHistoryRequest, modifyHeaders?: HeadersFunc): Promise<ComplaintHistoryResponse> {
+
+	async complaintHistory(complaintHistoryRequest?: ComplaintHistoryRequest, modifyHeaders?: HeadersFunc): Promise<ComplaintHistoryResponse> {
 		if (complaintHistoryRequest == null) {
 			complaintHistoryRequest = new ComplaintHistoryRequest();
 		}
@@ -166,8 +165,8 @@ export class ComplaintsService {
 			return new ComplaintHistoryResponse(json);
 		})
 	}
-	
-		async listComplaints(listComplaintsRequest?: ListComplaintsRequest, modifyHeaders?: HeadersFunc): Promise<ListComplaintsResponse> {
+
+	async listComplaints(listComplaintsRequest?: ListComplaintsRequest, modifyHeaders?: HeadersFunc): Promise<ListComplaintsResponse> {
 		if (listComplaintsRequest == null) {
 			listComplaintsRequest = new ListComplaintsRequest();
 		}
@@ -195,8 +194,8 @@ export class ComplaintsService {
 			return new ListComplaintsResponse(json);
 		})
 	}
-	
-		async submitComplaint(submitComplaintRequest?: SubmitComplaintRequest, modifyHeaders?: HeadersFunc): Promise<SubmitComplaintResponse> {
+
+	async submitComplaint(submitComplaintRequest?: SubmitComplaintRequest, modifyHeaders?: HeadersFunc): Promise<SubmitComplaintResponse> {
 		if (submitComplaintRequest == null) {
 			submitComplaintRequest = new SubmitComplaintRequest();
 		}
@@ -224,7 +223,71 @@ export class ComplaintsService {
 			return new SubmitComplaintResponse(json);
 		})
 	}
-	
+
+}
+
+// NotificationService handle the conversational form requests
+export class NotificationService {
+	constructor(readonly client: Client) { }
+
+	async broadcastAnnouncement(broadcastAnnouncementRequest?: BroadcastAnnouncementRequest, modifyHeaders?: HeadersFunc): Promise<BroadcastAnnouncementResponse> {
+		if (broadcastAnnouncementRequest == null) {
+			broadcastAnnouncementRequest = new BroadcastAnnouncementRequest();
+		}
+		const headers: Headers = new Headers();
+		headers.set('Accept', 'application/json');
+		headers.set('Content-Type', 'application/json');
+		if (this.client.headers) {
+			await this.client.headers(headers);
+		}
+		if (modifyHeaders) {
+			await modifyHeaders(headers)
+		}
+		const response = await fetch(this.client.basepath + 'NotificationService.BroadcastAnnouncement', {
+			method: 'POST',
+			headers: headers,
+			body: JSON.stringify(broadcastAnnouncementRequest),
+		})
+		if (response.status !== 200) {
+			throw new Error(`NotificationService.BroadcastAnnouncement: ${response.status} ${response.statusText}`);
+		}
+		return response.json().then((json) => {
+			if (json.error) {
+				throw new Error(json.error);
+			}
+			return new BroadcastAnnouncementResponse(json);
+		})
+	}
+
+	async listAnnouncements(listAnnouncementsRequest?: ListAnnouncementsRequest, modifyHeaders?: HeadersFunc): Promise<ListAnnouncementsResponse> {
+		if (listAnnouncementsRequest == null) {
+			listAnnouncementsRequest = new ListAnnouncementsRequest();
+		}
+		const headers: Headers = new Headers();
+		headers.set('Accept', 'application/json');
+		headers.set('Content-Type', 'application/json');
+		if (this.client.headers) {
+			await this.client.headers(headers);
+		}
+		if (modifyHeaders) {
+			await modifyHeaders(headers)
+		}
+		const response = await fetch(this.client.basepath + 'NotificationService.ListAnnouncements', {
+			method: 'POST',
+			headers: headers,
+			body: JSON.stringify(listAnnouncementsRequest),
+		})
+		if (response.status !== 200) {
+			throw new Error(`NotificationService.ListAnnouncements: ${response.status} ${response.statusText}`);
+		}
+		return response.json().then((json) => {
+			if (json.error) {
+				throw new Error(json.error);
+			}
+			return new ListAnnouncementsResponse(json);
+		})
+	}
+
 }
 
 
@@ -233,7 +296,7 @@ export class ComplaintsService {
 export class AnalyticsRequest {
 	constructor(data?: any) {
 		if (data) {
-		
+
 		}
 	}
 
@@ -243,59 +306,92 @@ export class AnalyticsRequest {
 export class AnalyticsResponse {
 	constructor(data?: any) {
 		if (data) {
-		
-			
+
+
 			this.total = data.total;
-			
-		
-			
+
+
+
 			this.pending = data.pending;
-			
-		
-			
+
+
+
 			this.closed = data.closed;
-			
-		
-			
+
+
+
 			this.resolved = data.resolved;
-			
-		
-			
+
+
+
 			this.in_progress = data.in_progress;
-			
-		
-			
-				
-					if (data.daily_submissions) {
-						this.daily_submissions = []
-						for (let i = 0; i < data.daily_submissions.length; i++) {
-							this.daily_submissions.push(new DailySubmissionEntry(data.daily_submissions[i]));
-						}
-					}
-				
-			
-		
-			
+
+
+
+
+			if (data.daily_submissions) {
+				this.daily_submissions = []
+				for (let i = 0; i < data.daily_submissions.length; i++) {
+					this.daily_submissions.push(new DailySubmissionEntry(data.daily_submissions[i]));
+				}
+			}
+
+
+
+
 			this.error = data.error;
-			
-		
+
+
 		}
 	}
 
-		total: number = numberDefault;
+	total: number = numberDefault;
 
-		pending: number = numberDefault;
+	pending: number = numberDefault;
 
-		closed: number = numberDefault;
+	closed: number = numberDefault;
 
-		resolved: number = numberDefault;
+	resolved: number = numberDefault;
 
-		in_progress: number = numberDefault;
+	in_progress: number = numberDefault;
 
-		daily_submissions?: DailySubmissionEntry[];
+	daily_submissions?: DailySubmissionEntry[];
 
 	// Error is string explaining what went wrong. Empty if everything was fine.
 	error: string = stringDefault;
+
+}
+
+export class Announcement {
+	constructor(data?: any) {
+		if (data) {
+
+
+			this.id = data.id;
+
+
+
+			this.subject = data.subject;
+
+
+
+			this.message = data.message;
+
+
+
+			this.created_at = data.created_at;
+
+
+		}
+	}
+
+	id: string = UUIDDefault;
+
+	subject: string = stringDefault;
+
+	message: string = stringDefault;
+
+	created_at: string = stringDefault;
 
 }
 
@@ -303,21 +399,21 @@ export class AnalyticsResponse {
 export class AssignComplaintRequest {
 	constructor(data?: any) {
 		if (data) {
-		
-			
+
+
 			this.id = data.id;
-			
-		
-			
+
+
+
 			this.user_id = data.user_id;
-			
-		
+
+
 		}
 	}
 
-		id: string = UUIDDefault;
+	id: string = UUIDDefault;
 
-		user_id: number = numberDefault;
+	user_id: number = numberDefault;
 
 }
 
@@ -325,11 +421,11 @@ export class AssignComplaintRequest {
 export class AssignComplaintResponse {
 	constructor(data?: any) {
 		if (data) {
-		
-			
+
+
 			this.error = data.error;
-			
-		
+
+
 		}
 	}
 
@@ -342,21 +438,21 @@ export class AssignComplaintResponse {
 export class AttachMediaRequest {
 	constructor(data?: any) {
 		if (data) {
-		
-			
+
+
 			this.id = data.id;
-			
-		
-			
+
+
+
 			this.media_id = data.media_id;
-			
-		
+
+
 		}
 	}
 
-		id: string = UUIDDefault;
+	id: string = UUIDDefault;
 
-		media_id: string = UUIDDefault;
+	media_id: string = UUIDDefault;
 
 }
 
@@ -364,19 +460,64 @@ export class AttachMediaRequest {
 export class AttachMediaResponse {
 	constructor(data?: any) {
 		if (data) {
-		
-			
+
+
 			this.url = data.url;
-			
-		
-			
+
+
+
 			this.error = data.error;
-			
-		
+
+
 		}
 	}
 
-		url: string = stringDefault;
+	url: string = stringDefault;
+
+	// Error is string explaining what went wrong. Empty if everything was fine.
+	error: string = stringDefault;
+
+}
+
+// BroadcastAnnouncementRequest is the request object for submitting new complaints
+export class BroadcastAnnouncementRequest {
+	constructor(data?: any) {
+		if (data) {
+
+
+			this.subject = data.subject;
+
+
+
+			this.message = data.message;
+
+
+		}
+	}
+
+	subject: string = stringDefault;
+
+	message: string = stringDefault;
+
+}
+
+// BroadcastAnnouncementResponse is a response object containing
+export class BroadcastAnnouncementResponse {
+	constructor(data?: any) {
+		if (data) {
+
+
+			this.id = data.id;
+
+
+
+			this.error = data.error;
+
+
+		}
+	}
+
+	id: string = UUIDDefault;
 
 	// Error is string explaining what went wrong. Empty if everything was fine.
 	error: string = stringDefault;
@@ -387,21 +528,21 @@ export class AttachMediaResponse {
 export class CloseComplaintRequest {
 	constructor(data?: any) {
 		if (data) {
-		
-			
+
+
 			this.id = data.id;
-			
-		
-			
+
+
+
 			this.resolved = data.resolved;
-			
-		
+
+
 		}
 	}
 
-		id: string = UUIDDefault;
+	id: string = UUIDDefault;
 
-		resolved: boolean = booleanDefault;
+	resolved: boolean = booleanDefault;
 
 }
 
@@ -409,19 +550,19 @@ export class CloseComplaintRequest {
 export class CloseComplaintResponse {
 	constructor(data?: any) {
 		if (data) {
-		
-			
+
+
 			this.closed = data.closed;
-			
-		
-			
+
+
+
 			this.error = data.error;
-			
-		
+
+
 		}
 	}
 
-		closed: boolean = booleanDefault;
+	closed: boolean = booleanDefault;
 
 	// Error is string explaining what went wrong. Empty if everything was fine.
 	error: string = stringDefault;
@@ -431,81 +572,81 @@ export class CloseComplaintResponse {
 export class Complaint {
 	constructor(data?: any) {
 		if (data) {
-		
-			
+
+
 			this.id = data.id;
-			
-		
-			
+
+
+
 			this.user_id = data.user_id;
-			
-		
-			
+
+
+
 			this.created_at = data.created_at;
-			
-		
-			
+
+
+
 			this.updated_at = data.updated_at;
-			
-		
-			
+
+
+
 			this.category = data.category;
-			
-		
-			
+
+
+
 			this.message = data.message;
-			
-		
-			
+
+
+
 			this.closed = data.closed;
-			
-		
-			
+
+
+
 			this.closed_at = data.closed_at;
-			
-		
-			
+
+
+
 			this.resolved = data.resolved;
-			
-		
-			
+
+
+
 			this.assignee_id = data.assignee_id;
-			
-		
-			
+
+
+
 			this.assigned_at = data.assigned_at;
-			
-		
-			
+
+
+
 			this.media_urls = data.media_urls;
-			
-		
+
+
 		}
 	}
 
-		id: string = UUIDDefault;
+	id: string = UUIDDefault;
 
-		user_id: number = numberDefault;
+	user_id: number = numberDefault;
 
-		created_at: string = stringDefault;
+	created_at: string = stringDefault;
 
-		updated_at: string = stringDefault;
+	updated_at: string = stringDefault;
 
-		category: string = stringDefault;
+	category: string = stringDefault;
 
-		message: string = stringDefault;
+	message: string = stringDefault;
 
-		closed: boolean = booleanDefault;
+	closed: boolean = booleanDefault;
 
-		closed_at: string = stringDefault;
+	closed_at: string = stringDefault;
 
-		resolved: boolean = booleanDefault;
+	resolved: boolean = booleanDefault;
 
-		assignee_id: number = numberDefault;
+	assignee_id: number = numberDefault;
 
-		assigned_at: string = stringDefault;
+	assigned_at: string = stringDefault;
 
-		media_urls?: string[];
+	media_urls?: string[];
 
 }
 
@@ -513,15 +654,15 @@ export class Complaint {
 export class ComplaintHistoryRequest {
 	constructor(data?: any) {
 		if (data) {
-		
-			
+
+
 			this.id = data.id;
-			
-		
+
+
 		}
 	}
 
-		id: string = UUIDDefault;
+	id: string = UUIDDefault;
 
 }
 
@@ -529,26 +670,26 @@ export class ComplaintHistoryRequest {
 export class ComplaintHistoryResponse {
 	constructor(data?: any) {
 		if (data) {
-		
-			
-				
-					if (data.history) {
-						this.history = []
-						for (let i = 0; i < data.history.length; i++) {
-							this.history.push(new HistoryEntry(data.history[i]));
-						}
-					}
-				
-			
-		
-			
+
+
+
+			if (data.history) {
+				this.history = []
+				for (let i = 0; i < data.history.length; i++) {
+					this.history.push(new HistoryEntry(data.history[i]));
+				}
+			}
+
+
+
+
 			this.error = data.error;
-			
-		
+
+
 		}
 	}
 
-		history?: HistoryEntry[];
+	history?: HistoryEntry[];
 
 	// Error is string explaining what went wrong. Empty if everything was fine.
 	error: string = stringDefault;
@@ -558,48 +699,88 @@ export class ComplaintHistoryResponse {
 export class DailySubmissionEntry {
 	constructor(data?: any) {
 		if (data) {
-		
-			
+
+
 			this.date = data.date;
-			
-		
-			
+
+
+
 			this.count = data.count;
-			
-		
+
+
 		}
 	}
 
-		date: string = stringDefault;
+	date: string = stringDefault;
 
-		count: number = numberDefault;
+	count: number = numberDefault;
 
 }
 
 export class HistoryEntry {
 	constructor(data?: any) {
 		if (data) {
-		
-			
+
+
 			this.id = data.id;
-			
-		
-			
+
+
+
 			this.created_at = data.created_at;
-			
-		
-			
+
+
+
 			this.message = data.message;
-			
-		
+
+
 		}
 	}
 
-		id: string = UUIDDefault;
+	id: string = UUIDDefault;
 
-		created_at: string = stringDefault;
+	created_at: string = stringDefault;
 
-		message: string = stringDefault;
+	message: string = stringDefault;
+
+}
+
+// ListAnnouncementsRequest is the request object for listing announcements
+export class ListAnnouncementsRequest {
+	constructor(data?: any) {
+		if (data) {
+
+		}
+	}
+
+}
+
+// ListAnnouncementsResponse is a response object containing announcements
+export class ListAnnouncementsResponse {
+	constructor(data?: any) {
+		if (data) {
+
+
+
+			if (data.announcements) {
+				this.announcements = []
+				for (let i = 0; i < data.announcements.length; i++) {
+					this.announcements.push(new Announcement(data.announcements[i]));
+				}
+			}
+
+
+
+
+			this.error = data.error;
+
+
+		}
+	}
+
+	announcements?: Announcement[];
+
+	// Error is string explaining what went wrong. Empty if everything was fine.
+	error: string = stringDefault;
 
 }
 
@@ -607,7 +788,7 @@ export class HistoryEntry {
 export class ListComplaintsRequest {
 	constructor(data?: any) {
 		if (data) {
-		
+
 		}
 	}
 
@@ -617,26 +798,26 @@ export class ListComplaintsRequest {
 export class ListComplaintsResponse {
 	constructor(data?: any) {
 		if (data) {
-		
-			
-				
-					if (data.complaints) {
-						this.complaints = []
-						for (let i = 0; i < data.complaints.length; i++) {
-							this.complaints.push(new Complaint(data.complaints[i]));
-						}
-					}
-				
-			
-		
-			
+
+
+
+			if (data.complaints) {
+				this.complaints = []
+				for (let i = 0; i < data.complaints.length; i++) {
+					this.complaints.push(new Complaint(data.complaints[i]));
+				}
+			}
+
+
+
+
 			this.error = data.error;
-			
-		
+
+
 		}
 	}
 
-		complaints?: Complaint[];
+	complaints?: Complaint[];
 
 	// Error is string explaining what went wrong. Empty if everything was fine.
 	error: string = stringDefault;
@@ -647,49 +828,54 @@ export class ListComplaintsResponse {
 export class SubmitComplaintRequest {
 	constructor(data?: any) {
 		if (data) {
-		
-			
+
+
 			this.category = data.category;
-			
-		
-			
+
+
+
 			this.message = data.message;
-			
-		
+
+
+
+
+
 		}
 	}
 
-		category: string = stringDefault;
+	category: string = stringDefault;
 
-		message: string = stringDefault;
+	message: string = stringDefault;
+
 }
 
 // SubmitComplaintResponse is a response object containing submission responses
 export class SubmitComplaintResponse {
 	constructor(data?: any) {
 		if (data) {
-		
-			
+
+
 			this.id = data.id;
-			
-		
-			
+
+
+
 			this.error = data.error;
-			
-		
+
+
 		}
 	}
 
-		id: string = UUIDDefault;
+	id: string = UUIDDefault;
 
 	// Error is string explaining what went wrong. Empty if everything was fine.
 	error: string = stringDefault;
 
 }
 
+
 // these defaults make the template easier to write.
 const stringDefault = ''
 const numberDefault = 0
-const booleanDefault = false 
+const booleanDefault = false
 const anyDefault = null
-const UUIDDefault = "00000000-0000-0000-0000-000000000000";
+const UUIDDefault = "00000000-0000-0000-0000-000000000000"

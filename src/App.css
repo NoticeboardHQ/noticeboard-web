@@ -11,7 +11,7 @@
 }
 
 .tabs {
-  text-align: center;
+  text-align: left;
 }
 
 .left-right-padding {
@@ -49,7 +49,29 @@
   letter-spacing: 0.005em;
 }
 
-.dashboard {
+.tab-grid-container {
+  display: flex;
+  /*grid-template-columns: 1fr 29fr;*/
+}
+
+.side-panel {
+  width: 4%;
+/*  transition: width 0.8s;
+*/}
+/*
+.side-panel:hover {
+  width: 12%;
+}
+*/
+.dashboard-screen-adjusted {
+  width: 88%;
+}
+
+.dashboard-screen {
+  width: 96%;
+}
+
+.tab-content {
   background-color: #ebebeb;
   height: 100%;
   padding-top: 1em;
@@ -77,10 +99,18 @@
   padding-top: 2em;
 }
 
+.no-complaints {
+  text-align: center;
+  font-style: italic;
+  font-weight: lighter;
+}
+
 .nav-item {
-  padding-left: 1.5em;
-  padding-right: 1.5em;
-  margin-top: 1em;
+  padding: 0.4em;
+}
+
+.nav-item:hover {
+  border-bottom: 0.5px solid var(--bs-link-hover-color);
 }
 
 .table-header {

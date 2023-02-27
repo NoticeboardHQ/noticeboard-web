@@ -8,20 +8,6 @@ import AssignComplaintModal from './AssignComplaintModal'
 import { ComplaintsService, Client } from '../middleware/client.gen';
 import { ComplaintProps } from './interfaces'
 
-const GET_COMPLAINTS = gql`
-  query GET_COMPLAINTS {
-    complaints {
-      tenantNumber
-      tenantAddress
-      complaintText
-      date
-      time
-      level
-      resolved
-    }
-  }
-`
-
 const levelColors = ['green-box', 'orange-box', 'red-box']
 
 function ComplaintsTable() {
@@ -61,31 +47,36 @@ function ComplaintsTable() {
 
         <tbody>
           { 
-            complaints.map((complaint: ComplaintProps): any => {
-              const createdAt = new Date(complaint.created_at)
-              const date = createdAt.toDateString()
-              const time = createdAt.toLocaleTimeString()
-              complaint.tenantNumber = Math.floor(Math.random() * 1000)
-              const randomColorNumber = Math.floor(Math.random() * 3)
-              {/*const randomResolvedChooser = Math.floor(Math.random() * 2)*/}
-              return <tr>
-                <td>{complaint.tenantNumber}</td>
-                <td>{complaint.message}</td>
-                <td>{date}</td>
-                <td>{time}</td>
-                <td><div className={levelColors[randomColorNumber]}></div></td>
-                <td className="center-table-items">
-                  { 
-                    complaint.resolved
-                      ? <FontAwesomeIcon icon={faCircleCheck} style={{ color: 'green' }} size="xl" />
-                      : <Button 
-                          className="light-primary rounded-border menu-text"
-                          onClick={() => handleComplaintButtonClicked(complaint)}
-                        > Assign </Button>
-                  }
-                </td>
+            complaints.length > 0
+            ? 
+              complaints.slice(0, 8).map((complaint: ComplaintProps): any => {
+                const createdAt = new Date(complaint.created_at)
+                const date = createdAt.toDateString()
+                const time = createdAt.toLocaleTimeString()
+                complaint.tenantNumber = Math.floor(Math.random() * 1000)
+                const randomColorNumber = Math.floor(Math.random() * 3)
+                {/*const randomResolvedChooser = Math.floor(Math.random() * 2)*/}
+                return <tr>
+                  <td>{complaint.tenantNumber}</td>
+                  <td>{complaint.message}</td>
+                  <td>{date}</td>
+                  <td>{time}</td>
+                  <td><div className={levelColors[randomColorNumber]}></div></td>
+                  <td className="center-table-items">
+                    { 
+                      complaint.resolved
+                        ? <FontAwesomeIcon icon={faCircleCheck} style={{ color: 'green' }} size="xl" />
+                        : <Button 
+                            className="light-primary rounded-border menu-text"
+                            onClick={() => handleComplaintButtonClicked(complaint)}
+                          > Assign </Button>
+                    }
+                  </td>
+                </tr>
+              })
+            : <tr>
+                <th colSpan={6} rowSpan={2} className="no-complaints"> No Complaints Available </th>
               </tr>
-            })
           }
         </tbody>
       </Table>
